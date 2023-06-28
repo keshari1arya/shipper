@@ -4,7 +4,7 @@ using shipper_api.DTO;
 namespace Shipper.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class QuoteController : ControllerBase
     {
         private const string quotableUrl = "https://api.quotable.io/";
@@ -21,7 +21,7 @@ namespace Shipper.Controllers
             return Ok(await res.Content.ReadFromJsonAsync<Quote>());
         }
 
-        [HttpGet("getByAuthor/{authorName}")]
+        [HttpGet("author/{authorName}")]
         public async Task<IActionResult> GetByAuthorNameAsync(string authorName)
         {
             try

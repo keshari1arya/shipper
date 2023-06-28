@@ -1,0 +1,21 @@
+CREATE OR ALTER PROCEDURE Shipper_Shipment_Details
+    @shipper_id INT
+AS
+BEGIN
+    SELECT
+        s.shipment_id as ShipmentId,
+        sp.shipper_name as ShipperName,
+        c.carrier_name as CarrierName,
+        s.shipment_description as ShipmentDescription,
+        s.shipment_weight as ShipmentWeight,
+        sr.shipment_rate_description as ShipmentRateDescription
+    FROM
+        dbo.SHIPMENT AS s
+        INNER JOIN dbo.SHIPPER AS sp ON s.shipper_id = sp.shipper_id
+        INNER JOIN dbo.CARRIER AS c ON s.carrier_id = c.carrier_id
+        INNER JOIN dbo.SHIPMENT_RATE AS sr ON s.shipment_rate_id = sr.shipment_rate_id
+    WHERE
+        sp.shipper_id = @shipper_id
+	ORDER BY
+		c.carrier_name;
+END
